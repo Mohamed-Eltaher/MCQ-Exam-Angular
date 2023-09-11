@@ -1,0 +1,44 @@
+<div class="examBox">
+  <div class="examhead text-center">
+    <h2>اختبار {{subject?.name}}</h2>
+  </div>
+  <div class="quizBox" *ngFor="let item of subject?.questions; let index=index">
+    <strong><span class="text-danger">سؤال {{index+1}}</span> . {{item.question}}</strong>
+    <div class="row mt-3">
+      <div class="col-md-6 col-sm-12">
+        <mat-radio-button value="{{item.answer1}}" color="warn" name="{{index}}" (change)="getAnswer($event)"
+          *ngIf="user?.role == 'students' && !showResult &&validExam"></mat-radio-button>
+        <label>A. {{item.answer1}}</label>
+      </div>
+
+      <div class="col-md-6 col-sm-12">
+        <mat-radio-button value="{{item.answer2}}" color="warn" name="{{index}}" (change)="getAnswer($event)"
+          *ngIf="user?.role == 'students' && !showResult &&validExam"></mat-radio-button>
+        <label>B. {{item.answer2}}</label>
+      </div>
+
+      <div class="col-md-6 col-sm-12">
+        <mat-radio-button value="{{item.answer3}}" color="warn" name="{{index}}" (change)="getAnswer($event)"
+          *ngIf="user?.role == 'students' && !showResult &&validExam"></mat-radio-button>
+        <label>C. {{item.answer3}}</label>
+      </div>
+
+      <div class="col-md-6 col-sm-12">
+        <mat-radio-button value="{{item.answer4}}" color="warn" name="{{index}}" (change)="getAnswer($event)"
+          *ngIf="user?.role == 'students' && !showResult &&validExam"></mat-radio-button>
+        <label>D. {{item.answer4}}</label>
+      </div>
+    </div>
+    <div class="text-start" *ngIf="user?.role == 'doctor'">
+      <button mat-raised-button class="btn btn-danger" (click)="delete(index)">حذف</button>
+    </div>
+    <hr>
+
+  </div>
+
+  <div class="text-center" *ngIf="user?.role == 'students'">
+    <span class="fs-4 text-success" *ngIf="showResult || !validExam"> {{subject?.questions.length}} / {{total}}</span>
+    <button class="btn btn-success px-5 fs-5" (click)="getResult()" *ngIf="!showResult &&validExam"> النتيجة</button>
+  </div>
+
+</div>
